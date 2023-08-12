@@ -1,12 +1,25 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import 'dotenv/config';
+
+import express, { Application, Request, NextFunction } from 'express';
+
+import { userRoutes } from './routes/userRoutes';
 
 // express app
 const app: Application = express();
 
-// routes
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Hello Route');
+// middlewares
+app.use(express.json());
+
+app.use((req: Request, _, next: NextFunction) => {
+    console.log(req.method + ' at ' + req.path);
+
+    next();
 });
 
+// routes
+app.use('/api/users', userRoutes);
+
 // listen for requests
-app.listen(4000, () => console.log('listening on port 4000'));
+app.listen(process.env.PORT, () =>
+    console.log(`Listening on port ${process.env.PORT}`)
+);
