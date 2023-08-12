@@ -68,7 +68,7 @@ const updateUser = (req: Request, res: Response): Response<User> => {
 };
 
 // delete user
-const deleteUser = (req: Request, res: Response) => {
+const deleteUser = (req: Request, res: Response): Response<boolean> => {
     const id: string = req.params.id;
 
     if (!id) {

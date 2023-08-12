@@ -112,6 +112,7 @@ class UserRepository {
     // delete user
     public deleteUser(id: string): boolean {
         try {
+            // check if there is user available
             const user: User | undefined = this.users.find(
                 (user: User) => user._id === id
             );
