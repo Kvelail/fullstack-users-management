@@ -1,4 +1,4 @@
-import { userRepository } from '../repository/userRepository';
+import { userRepository } from '../repositories/userRepository';
 
 // models
 import { User } from '../models/user.model';

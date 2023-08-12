@@ -8,7 +8,7 @@ import {
     deleteUser,
 } from '../controllers/userController';
 
-import { createOrUpdateUserSchema } from '../middleware/createOrUpdateUser.schema';
+import { createOrUpdateUserSchema } from '../middlewares/createOrUpdateUser.schema';
 
 // express router
 const router: Router = express.Router();
