@@ -1,6 +1,11 @@
+import { userRepository } from '../repository/userRepository';
+
+// models
+import { User } from '../models/user.model';
+
 // get all users
-const getAllUsers = () => {
-    console.log('getAllUsers');
+const getAllUsers = (urlString: string): User[] => {
+    return userRepository.getAllUsers(urlString);
 };
 
 // get single user

@@ -1,23 +1,59 @@
+import url from 'url';
+
+import { usersData } from '../data/usersData';
+
+// models
+import { User } from '../models/user.model';
+import { ParsedUrlQuery } from 'querystring';
+
 // repository
 class UserRepository {
-    constructor() {}
+    private users: User[] = [];
+
+    constructor() {
+        this.users = usersData;
+    }
 
     // get all users
-    private getAllUsers() {}
+    public getAllUsers(urlString: string): User[] {
+        try {
+            const { query }: { query: ParsedUrlQuery } = url.parse(
+                urlString,
+                true
+            );
+
+            // if query retrieve filtered users based on query, if not retrieve all users
+            if (query.email || query.phoneNumber) {
+                const filteredUsers: User[] = this.users.filter(
+                    (user: User) =>
+                        user.email === query.email ||
+                        user.phoneNumber === query.phoneNumber
+                );
+
+                return filteredUsers;
+            }
+
+            return this.users;
+        } catch (err) {
+            console.log({ error: err });
+
+            throw new Error('Unable to retrieve users');
+        }
+    }
 
     // get single user
-    private getSignleUser() {}
+    public getSignleUser() {}
 
     // create user
-    private createUser() {}
+    public createUser() {}
 
     // update user
-    private updateUser() {}
+    public updateUser() {}
 
     // delete user
-    private deleteUser() {}
+    public deleteUser() {}
 }
 
-const repository = new UserRepository();
+const userRepository: UserRepository = new UserRepository();
 
-export { repository };
+export { userRepository };
