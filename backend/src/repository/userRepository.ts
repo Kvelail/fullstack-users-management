@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 // models
 import { User } from '../models/user.model';
 import { ParsedUrlQuery } from 'querystring';
-import { CreateUserDTO } from '../models/user.dto';
+import { CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
 
 // repository
 class UserRepository {
@@ -80,7 +80,34 @@ class UserRepository {
     }
 
     // update user
-    public updateUser() {}
+    public updateUser(payload: UpdateUserDTO, id: string): User {
+        try {
+            let index: number = 0;
+
+            // find user based on id and update
+            this.users = this.users.map((user: User, indx: number) => {
+                if (user._id === id) {
+                    // get updated user index
+                    index = indx;
+
+                    return {
+                        _id: user._id,
+                        ...payload,
+                    };
+                }
+
+                return user;
+            });
+
+            const updatedUser: User = this.users[index];
+
+            return updatedUser;
+        } catch (err) {
+            console.log({ error: err });
+
+            throw new Error('Unable to update user');
+        }
+    }
 
     // delete user
     public deleteUser() {}

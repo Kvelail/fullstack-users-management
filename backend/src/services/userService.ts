@@ -2,7 +2,7 @@ import { userRepository } from '../repository/userRepository';
 
 // models
 import { User } from '../models/user.model';
-import { CreateUserDTO } from '../models/user.dto';
+import { CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
 
 // get all users
 const getAllUsers = (urlString: string): User[] => {
@@ -15,13 +15,13 @@ const getSingleUser = (id: string): User => {
 };
 
 // create user
-const createUser = (payload: CreateUserDTO) => {
+const createUser = (payload: CreateUserDTO): User => {
     return userRepository.createUser(payload);
 };
 
 // update user
-const updateUser = () => {
-    console.log('updateUser');
+const updateUser = (payload: UpdateUserDTO, id: string): User => {
+    return userRepository.updateUser(payload, id);
 };
 
 // delete user

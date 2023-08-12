@@ -4,3 +4,5 @@ export interface CreateUserDTO {
     lastName: string;
     phoneNumber: string;
 }
+
+export interface UpdateUserDTO extends CreateUserDTO {}
