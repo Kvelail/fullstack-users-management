@@ -61,7 +61,7 @@ const updateUser = (req: Request, res: Response): Response<User> => {
     const user: User = userService.updateUser(payload, id);
 
     if (!user) {
-        return res.status(400).json({ error: 'Unable to update user' });
+        return res.status(400).json({ error: 'No such user' });
     }
 
     return res.status(200).json(user);
@@ -69,7 +69,19 @@ const updateUser = (req: Request, res: Response): Response<User> => {
 
 // delete user
 const deleteUser = (req: Request, res: Response) => {
-    res.json('deleteUser');
+    const id: string = req.params.id;
+
+    if (!id) {
+        return res.status(404).json({ error: 'No such user' });
+    }
+
+    const userDeleted: boolean = userService.deleteUser(id);
+
+    if (!userDeleted) {
+        return res.status(404).json({ error: 'No such user' });
+    }
+
+    return res.status(200).json({ message: 'User deleted' });
 };
 
 export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };

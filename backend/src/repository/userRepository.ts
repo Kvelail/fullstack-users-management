@@ -110,7 +110,26 @@ class UserRepository {
     }
 
     // delete user
-    public deleteUser() {}
+    public deleteUser(id: string): boolean {
+        try {
+            const user: User | undefined = this.users.find(
+                (user: User) => user._id === id
+            );
+
+            if (!user) {
+                return false;
+            }
+
+            // remove user based on id
+            this.users = this.users.filter((user: User) => user._id !== id);
+
+            return true;
+        } catch (err) {
+            console.log({ error: err });
+
+            throw new Error('Unable to delete user');
+        }
+    }
 }
 
 const userRepository: UserRepository = new UserRepository();

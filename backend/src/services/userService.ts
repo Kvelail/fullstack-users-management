@@ -25,8 +25,8 @@ const updateUser = (payload: UpdateUserDTO, id: string): User => {
 };
 
 // delete user
-const deleteUser = () => {
-    console.log('deleteUser');
+const deleteUser = (id: string): boolean => {
+    return userRepository.deleteUser(id);
 };
 
 export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };
