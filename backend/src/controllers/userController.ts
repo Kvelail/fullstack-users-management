@@ -14,8 +14,20 @@ const getAllUsers = (req: Request, res: Response): Response<User[]> => {
 };
 
 // get single user
-const getSignleUser = (req: Request, res: Response) => {
-    res.json('getSignleUser');
+const getSingleUser = (req: Request, res: Response): Response<User> => {
+    const id: string = req.params.id;
+
+    if (!id) {
+        return res.status(404).json({ error: 'No such user' });
+    }
+
+    const user: User = userService.getSingleUser(id);
+
+    if (!user) {
+        return res.status(404).json({ error: 'No such user' });
+    }
+
+    return res.status(200).json(user);
 };
 
 // create user
@@ -33,4 +45,4 @@ const deleteUser = (req: Request, res: Response) => {
     res.json('deleteUser');
 };
 
-export { getAllUsers, getSignleUser, createUser, updateUser, deleteUser };
+export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };

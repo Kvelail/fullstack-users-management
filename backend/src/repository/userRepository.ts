@@ -42,7 +42,20 @@ class UserRepository {
     }
 
     // get single user
-    public getSignleUser() {}
+    public getSingleUser(id: string): User {
+        try {
+            // retrieve user based on id
+            const filteredUser: User = usersData.filter(
+                (user: User) => user._id === id
+            )[0];
+
+            return filteredUser;
+        } catch (err) {
+            console.log({ error: err });
+
+            throw new Error('No such user');
+        }
+    }
 
     // create user
     public createUser() {}

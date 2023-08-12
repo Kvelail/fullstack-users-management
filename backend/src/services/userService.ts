@@ -9,8 +9,8 @@ const getAllUsers = (urlString: string): User[] => {
 };
 
 // get single user
-const getSignleUser = () => {
-    console.log('getSignleUser');
+const getSingleUser = (id: string): User => {
+    return userRepository.getSingleUser(id);
 };
 
 // create user
@@ -28,4 +28,4 @@ const deleteUser = () => {
     console.log('deleteUser');
 };
 
-export { getAllUsers, getSignleUser, createUser, updateUser, deleteUser };
+export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };

@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 
 import {
     getAllUsers,
-    getSignleUser,
+    getSingleUser,
     createUser,
     updateUser,
     deleteUser,
@@ -13,7 +13,7 @@ const router: Router = express.Router();
 
 // routes
 router.get('/', getAllUsers);
-router.get('/:id', getSignleUser);
+router.get('/:id', getSingleUser);
 router.post('/', createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);

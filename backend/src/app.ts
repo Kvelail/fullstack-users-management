@@ -1,8 +1,9 @@
 import 'dotenv/config';
 
-import express, { Application, Request, NextFunction } from 'express';
-
 import { userRoutes } from './routes/userRoutes';
+
+// models
+import express, { Application, Request, NextFunction } from 'express';
 
 // express app
 const app: Application = express();

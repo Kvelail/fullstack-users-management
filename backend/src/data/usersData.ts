@@ -117,6 +117,7 @@ for (let i: number = 0; i < userPhoneNumberData.length; i++) {
     for (let j: number = 0; j < userEmailsData.length; j++) {
         const jEmail: string = userEmailsData[j].email;
 
+        // loop through two arrays and combine unique values
         if (jEmail === iEmail) {
             const user: User = {
                 _id: uuidv4(),
