@@ -1,4 +1,4 @@
-interface UserPhoneNumber {
+export interface UserPhoneNumber {
     email: string;
     phoneNumbers: [
         {
@@ -7,5 +7,3 @@ interface UserPhoneNumber {
         }
     ];
 }
-
-export { UserPhoneNumber };

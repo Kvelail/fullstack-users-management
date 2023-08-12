@@ -3,6 +3,7 @@ import * as userService from '../services/userService';
 // models
 import { Request, Response } from 'express';
 import { User } from '../models/user.model';
+import { CreateUserDTO } from '../models/user.dto';
 
 // get all users
 const getAllUsers = (req: Request, res: Response): Response<User[]> => {
@@ -31,8 +32,12 @@ const getSingleUser = (req: Request, res: Response): Response<User> => {
 };
 
 // create user
-const createUser = (req: Request, res: Response) => {
-    res.json('createUser');
+const createUser = (req: Request, res: Response): Response<User> => {
+    const payload: CreateUserDTO = req.body;
+
+    const user: User = userService.createUser(payload);
+
+    return res.status(201).json(user);
 };
 
 // update user

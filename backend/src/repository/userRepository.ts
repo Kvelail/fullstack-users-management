@@ -2,9 +2,12 @@ import url from 'url';
 
 import { usersData } from '../data/usersData';
 
+import { v4 as uuidv4 } from 'uuid';
+
 // models
 import { User } from '../models/user.model';
 import { ParsedUrlQuery } from 'querystring';
+import { CreateUserDTO } from '../models/user.dto';
 
 // repository
 class UserRepository {
@@ -58,7 +61,23 @@ class UserRepository {
     }
 
     // create user
-    public createUser() {}
+    public createUser(user: CreateUserDTO): User {
+        try {
+            // generate new user based on payload and add to database
+            const newUser: User = {
+                _id: uuidv4(),
+                ...user,
+            };
+
+            this.users = [...this.users, newUser];
+
+            return newUser;
+        } catch (err) {
+            console.log({ error: err });
+
+            throw new Error('Unable to create user');
+        }
+    }
 
     // update user
     public updateUser() {}
