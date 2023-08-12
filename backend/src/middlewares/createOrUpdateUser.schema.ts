@@ -37,6 +37,9 @@ const createOrUpdateUserSchema = (
                 .join(', ')}`
         );
     } else {
+        // on success replace req.body with validated value and trigger next middleware function
+        req.body = value;
+
         next();
     }
 };
