@@ -1,0 +1,26 @@
+@import '../variables/variables.scss';
+
+.users-list {
+    border-radius: 1rem;
+    padding: 4rem 3rem;
+    background: $color-white;
+    box-shadow: $box-shadow;
+
+    &-header {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        grid-gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $color-black-2;
+
+        p {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: $color-black;
+
+            &:last-child {
+                justify-self: end;
+            }
+        }
+    }
+}
