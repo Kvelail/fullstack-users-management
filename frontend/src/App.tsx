@@ -1,7 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App = () => {
-    return <div className="app">APP</div>;
+import styles from './styles/modules/app.module.scss';
+
+// components
+import Navbar from './components/navbar/Navbar';
+
+const App: React.FC = (): JSX.Element => {
+    return (
+        <div
+            className={`${styles.app} d-flex flex-column align-items-center container-fluid`}
+        >
+            <Navbar />
+        </div>
+    );
 };
 
 export default App;

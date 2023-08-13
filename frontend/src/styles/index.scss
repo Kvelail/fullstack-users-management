@@ -1,0 +1,35 @@
+@import './variables/variables.scss';
+
+/* Defaults */
+
+:root {
+    font-size: 62.5%;
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+body {
+    background: $color-grey !important;
+}
+
+/* Global */
+
+.user-select-none {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
