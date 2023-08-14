@@ -91,8 +91,15 @@
     /* Action container */
 
     .action-container {
+        button {
+            border: 0;
+            outline: 0;
+            background: unset;
+        }
+
         .edit-icon,
-        .trash-icon {
+        .trash-icon,
+        .confirm-icon {
             width: 2.2rem;
             height: 2.2rem;
             cursor: pointer;
@@ -102,7 +109,8 @@
                 transform: scale(1.2);
             }
 
-            &.edit-icon {
+            &.edit-icon,
+            &.confirm-icon {
                 margin-right: 1rem;
 
                 path {

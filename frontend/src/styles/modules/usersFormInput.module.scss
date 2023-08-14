@@ -18,4 +18,8 @@
         color: $color-black;
         background: rgb(66, 66, 66, 0.2);
     }
+
+    &.input-padding-off {
+        padding: 0;
+    }
 }

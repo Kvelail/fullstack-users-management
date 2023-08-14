@@ -4,12 +4,15 @@ import { UsersFormInputProps } from '../../../models/usersFormInputProps.model';
 
 const UsersFormInput: React.FC<UsersFormInputProps> = ({
     placeholder,
+    paddingOff = false,
 }): JSX.Element => {
     return (
         <input
             type="text"
             placeholder={placeholder}
-            className={styles['users-form-input']}
+            className={`${styles['users-form-input']} ${
+                paddingOff && styles['input-padding-off']
+            }`}
         />
     );
 };

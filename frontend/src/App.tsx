@@ -4,8 +4,7 @@ import styles from './styles/modules/app.module.scss';
 
 // components
 import Navbar from './components/navbar/Navbar';
-import UsersList from './components/users-list/UsersList';
-import UsersForm from './components/users-form/UsersForm';
+import Home from './pages/Home';
 
 const App: React.FC = (): JSX.Element => {
     return (
@@ -14,11 +13,7 @@ const App: React.FC = (): JSX.Element => {
         >
             <Navbar />
 
-            <div className={styles['app-main-container']}>
-                <UsersList />
-
-                <UsersForm />
-            </div>
+            <Home />
         </div>
     );
 };

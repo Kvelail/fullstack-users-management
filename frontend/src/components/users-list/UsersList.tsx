@@ -24,7 +24,9 @@ const UsersList: React.FC = (): JSX.Element => {
 
             {/* Users */}
 
-            <div>{usersList && usersList.map((user) => <User />)}</div>
+            <div>
+                {usersList && usersList.map((user) => <User key={user} />)}
+            </div>
         </div>
     );
 };
