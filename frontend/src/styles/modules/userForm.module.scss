@@ -6,6 +6,7 @@
     background: $color-white;
     box-shadow: $box-shadow;
     height: min-content;
+    order: 2;
 
     &-header {
         padding-bottom: 1rem;
@@ -35,5 +36,13 @@
                 color: $color-white;
             }
         }
+    }
+}
+
+/* Media queries */
+
+@media screen and (max-width: 950px) {
+    .users-form {
+        order: 1;
     }
 }

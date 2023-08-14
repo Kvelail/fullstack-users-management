@@ -13,7 +13,7 @@ const Navbar: React.FC = (): JSX.Element => {
 
                     <input
                         type="text"
-                        placeholder="Search users by email or phone..."
+                        placeholder="Enter email or phone..."
                         className={styles['search-input']}
                     />
                 </div>

@@ -4,3 +4,17 @@
     grid-template-columns: 2.5fr 1fr;
     grid-gap: 2rem;
 }
+
+/* Media queries */
+
+@media screen and (max-width: 1200px) {
+    .home-container {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .home-container {
+        grid-template-columns: 100%;
+    }
+}
