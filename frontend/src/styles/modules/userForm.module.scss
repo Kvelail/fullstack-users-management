@@ -1,0 +1,39 @@
+@import '../variables/variables.scss';
+
+.users-form {
+    border-radius: 1rem;
+    padding: 4rem 3rem;
+    background: $color-white;
+    box-shadow: $box-shadow;
+    height: min-content;
+
+    &-header {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $color-black-2;
+
+        p {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: $color-black;
+        }
+    }
+
+    .users-form-input-container {
+        button {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 0;
+            outline: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: $color-blue;
+            border-radius: 0.5rem;
+            transition: background 0.2s ease-out, color 0.2s ease-out;
+
+            &:hover {
+                background: $color-black;
+                color: $color-white;
+            }
+        }
+    }
+}

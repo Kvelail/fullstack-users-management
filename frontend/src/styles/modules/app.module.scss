@@ -10,9 +10,5 @@
         display: grid;
         grid-template-columns: 2.5fr 1fr;
         grid-gap: 2rem;
-
-        & > div:nth-child(2) {
-            background: blue;
-        }
     }
 }

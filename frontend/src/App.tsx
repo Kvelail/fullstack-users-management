@@ -5,6 +5,7 @@ import styles from './styles/modules/app.module.scss';
 // components
 import Navbar from './components/navbar/Navbar';
 import UsersList from './components/users-list/UsersList';
+import UsersForm from './components/users-form/UsersForm';
 
 const App: React.FC = (): JSX.Element => {
     return (
@@ -16,7 +17,7 @@ const App: React.FC = (): JSX.Element => {
             <div className={styles['app-main-container']}>
                 <UsersList />
 
-                <div>B</div>
+                <UsersForm />
             </div>
         </div>
     );
