@@ -1,6 +1,8 @@
 import 'dotenv/config';
 
-import { userRoutes } from './routes/userRoutes';
+import bodyParser from 'body-parser';
+
+import { userRoutes } from './routes/user.routes';
 
 // models
 import express, { Application, Request, NextFunction } from 'express';
@@ -9,7 +11,7 @@ import express, { Application, Request, NextFunction } from 'express';
 const app: Application = express();
 
 // middlewares
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.use((req: Request, _, next: NextFunction) => {
     console.log(req.method + ' at ' + req.path);

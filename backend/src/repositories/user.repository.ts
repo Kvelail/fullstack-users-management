@@ -1,13 +1,11 @@
-import url from 'url';
-
 import { usersData } from '../data/usersData';
 
 import { v4 as uuidv4 } from 'uuid';
 
 // models
 import { User } from '../models/user.model';
-import { ParsedUrlQuery } from 'querystring';
 import { CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
+import { UserQuery } from '../models/userQuery.model';
 
 // repository
 class UserRepository {
@@ -18,15 +16,10 @@ class UserRepository {
     }
 
     // get all users
-    public getAllUsers(urlString: string): User[] {
+    public getAllUsers(query: UserQuery): User[] {
         try {
-            const { query }: { query: ParsedUrlQuery } = url.parse(
-                urlString,
-                true
-            );
-
             // if query retrieve filtered users based on query, if not retrieve all users
-            if (query.email || query.phoneNumber) {
+            if (query?.email ?? query?.phoneNumber) {
                 const filteredUsers: User[] = this.users.filter(
                     (user: User) =>
                         user.email === query.email ||
@@ -45,12 +38,12 @@ class UserRepository {
     }
 
     // get single user
-    public getSingleUser(id: string): User {
+    public getSingleUser(id: string): User | undefined {
         try {
             // retrieve user based on id
-            const filteredUser: User = usersData.filter(
+            const filteredUser: User | undefined = usersData.find(
                 (user: User) => user._id === id
-            )[0];
+            );
 
             return filteredUser;
         } catch (err) {
@@ -58,6 +51,11 @@ class UserRepository {
 
             throw new Error('No such user');
         }
+    }
+
+    // get user by email
+    public getByEmail(email: string): User | undefined {
+        return this.users.find((user: User) => user.email === email);
     }
 
     // create user

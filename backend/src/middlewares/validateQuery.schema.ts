@@ -2,21 +2,17 @@ import Joi from 'joi';
 
 // models
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDTO } from '../models/user.dto';
 
-const createOrUpdateUserSchema = (
+const validateQuery = (
     req: Request,
     res: Response,
     next: NextFunction
 ): void => {
-    const payload: CreateUserDTO = req.body;
+    const params = req.params;
 
     // create schema object
-    const schema: Joi.ObjectSchema<CreateUserDTO> = Joi.object({
-        email: Joi.string().email().required(),
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        phoneNumber: Joi.string().required(),
+    const schema: Joi.ObjectSchema<{ id: string }> = Joi.object({
+        id: Joi.string().uuid().required(),
     });
 
     // schema options
@@ -26,8 +22,8 @@ const createOrUpdateUserSchema = (
         stripUnknown: true, // remove unknown props
     };
 
-    // validate request body against schema
-    const { error, value } = schema.validate(payload, options);
+    // validate request params against schema
+    const { error } = schema.validate(params, options);
 
     if (error) {
         // on fail return comma separated errors
@@ -37,11 +33,8 @@ const createOrUpdateUserSchema = (
                 .join(', ')}`
         );
     } else {
-        // on success replace req.body with validated value and trigger next middleware function
-        req.body = value;
-
         next();
     }
 };
 
-export { createOrUpdateUserSchema };
+export { validateQuery };

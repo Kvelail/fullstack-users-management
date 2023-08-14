@@ -1,15 +1,16 @@
-import * as userService from '../services/userService';
+import * as userService from '../services/user.service';
 
 // models
 import { Request, Response } from 'express';
 import { User } from '../models/user.model';
 import { CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
+import { UserQuery } from '../models/userQuery.model';
 
 // get all users
 const getAllUsers = (req: Request, res: Response): Response<User[]> => {
-    const urlString: string = req.url;
+    const query: UserQuery = req.query;
 
-    const users: User[] = userService.getAllUsers(urlString);
+    const users = userService.getAllUsers(query);
 
     if (!users) {
         return res.status(404).json({ error: 'Unable to retrieve users' });
@@ -22,14 +23,10 @@ const getAllUsers = (req: Request, res: Response): Response<User[]> => {
 const getSingleUser = (req: Request, res: Response): Response<User> => {
     const id: string = req.params.id;
 
-    if (!id) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
-    const user: User = userService.getSingleUser(id);
+    const user = userService.getSingleUser(id);
 
     if (!user) {
-        return res.status(404).json({ error: 'No such user' });
+        return res.status(404).json({ error: "User doesn't exist" });
     }
 
     return res.status(200).json(user);
@@ -39,30 +36,17 @@ const getSingleUser = (req: Request, res: Response): Response<User> => {
 const createUser = (req: Request, res: Response): Response<User> => {
     const payload: CreateUserDTO = req.body;
 
-    const user: User = userService.createUser(payload);
-
-    if (!user) {
-        return res.status(400).json({ error: 'Unable to create user' });
-    }
+    const user = userService.createUser(payload);
 
     return res.status(201).json(user);
 };
 
 // update user
 const updateUser = (req: Request, res: Response): Response<User> => {
+    const payload: UpdateUserDTO = req.body;
     const id: string = req.params.id;
 
-    if (!id) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
-    const payload: UpdateUserDTO = req.body;
-
-    const user: User = userService.updateUser(payload, id);
-
-    if (!user) {
-        return res.status(404).json({ error: 'No such user' });
-    }
+    const user = userService.updateUser(payload, id);
 
     return res.status(200).json(user);
 };
@@ -71,17 +55,13 @@ const updateUser = (req: Request, res: Response): Response<User> => {
 const deleteUser = (req: Request, res: Response): Response<boolean> => {
     const id: string = req.params.id;
 
-    if (!id) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
-    const userDeleted: boolean = userService.deleteUser(id);
+    const userDeleted = userService.deleteUser(id);
 
     if (!userDeleted) {
-        return res.status(404).json({ error: 'No such user' });
+        return res.status(404).send(false);
     }
 
-    return res.status(200).json({ message: 'User deleted' });
+    return res.status(200).send(true);
 };
 
 export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };
