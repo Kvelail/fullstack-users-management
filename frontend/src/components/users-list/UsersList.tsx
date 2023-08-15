@@ -38,7 +38,7 @@ const UsersList: React.FC = (): JSX.Element => {
 
     // use effect
     useEffect(() => {
-        dispatch(usersSlice.actions.updateUsers(usersList));
+        dispatch(usersSlice.actions.setUsers(usersList));
     }, [dispatch, usersList]);
 
     return (

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from '../../../styles/modules/user.module.scss';
 
 // api
-import { getSingleUser } from '../../../api/api';
+import { getSingleUser, updateUser } from '../../../api/api';
 
 // models
 import { UserProps } from '../../../models/userProps.model';
@@ -12,6 +12,10 @@ import { UserInfo } from '../../../models/userInfo.model';
 
 // enum
 import { ConstantString } from '../../../enum/constantString.enum';
+
+// redux
+import { useDispatch } from 'react-redux';
+import { usersSlice } from '../../../redux/slices/users.slice';
 
 // components
 import Avatar from '../avatar/Avatar';
@@ -31,8 +35,12 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
         phoneNumber: '',
     });
 
+    // redux
+    const dispatch = useDispatch();
+
     // inputs
     const handleInputChange = (value: string, inputType: string): void => {
+        // update user state property based on inputType
         if (inputType === ConstantString.FULL_NAME) {
             setUserInfo((prevState) => ({
                 ...prevState,
@@ -58,18 +66,30 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
     // buttons
     const handleEditClick = async (userId: string): Promise<void> => {
         setIsEditing((isEditing) => !isEditing);
+    };
 
-        const user = await getSingleUser(userId);
-        const filteredUserInfo = {
-            fullName: `${user.firstName} ${user.lastName}`,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
+    const handleSaveClick = async (userId: string): Promise<void> => {
+        const newUserInfo = {
+            ...userInfo,
+        };
+
+        // get updated user from database and create filtered user
+        const updatedUser = await updateUser(newUserInfo, userId);
+        const filteredUpdatedUser = {
+            fullName: `${updatedUser.firstName} ${updatedUser.lastName}`,
+            email: updatedUser.email,
+            phoneNumber: updatedUser.phoneNumber,
         };
 
         setUserInfo((prevState) => ({
             ...prevState,
-            ...filteredUserInfo,
+            ...filteredUpdatedUser,
         }));
+
+        // update store
+        dispatch(usersSlice.actions.updateUsers({ updatedUser, id: userId }));
+
+        setIsEditing((isEditing) => !isEditing);
     };
 
     return (
@@ -143,6 +163,9 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
             >
                 <button onClick={() => handleEditClick(user?._id)}>
                     {!isEditing && <EditSVG className={styles['edit-icon']} />}
+                </button>
+
+                <button onClick={() => handleSaveClick(user?._id)}>
                     {isEditing && (
                         <ConfirmSVG className={styles['confirm-icon']} />
                     )}

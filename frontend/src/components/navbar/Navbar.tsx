@@ -46,9 +46,9 @@ const Navbar: React.FC = (): JSX.Element => {
                 users = await getUserByEmailOrPhone(null, value);
             }
 
-            dispatch(usersSlice.actions.updateFilteredUsers(users));
+            dispatch(usersSlice.actions.setFilteredUsers(users));
         } else {
-            dispatch(usersSlice.actions.updateFilteredUsers([]));
+            dispatch(usersSlice.actions.setFilteredUsers([]));
         }
     };
 

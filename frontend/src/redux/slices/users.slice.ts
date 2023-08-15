@@ -13,15 +13,26 @@ export const usersSlice = createSlice({
     name,
     initialState,
     reducers: {
-        updateUsers: (state, action) => {
+        setUsers: (state, action) => {
             state.users = action.payload;
         },
-        updateFilteredUsers: (state, action) => {
+        setFilteredUsers: (state, action) => {
             state.filteredUsers = action.payload;
+        },
+        updateUsers: (state, action) => {
+            state.users = state.users.map((user) => {
+                if (user._id === action.payload.id) {
+                    return {
+                        ...action.payload.updatedUser,
+                    };
+                }
+
+                return user;
+            });
         },
     },
 });
 
-export const { updateUsers, updateFilteredUsers } = usersSlice.actions;
+export const { setUsers, setFilteredUsers } = usersSlice.actions;
 
 export default usersSlice.reducer;
