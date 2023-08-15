@@ -66,6 +66,18 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
     // buttons
     const handleEditClick = async (userId: string): Promise<void> => {
         setIsEditing((isEditing) => !isEditing);
+
+        const user = await getSingleUser(userId);
+        const filteredUserInfo = {
+            fullName: `${user?.firstName} ${user?.lastName}`,
+            email: user?.email,
+            phoneNumber: user?.phoneNumber,
+        };
+
+        setUserInfo((prevState) => ({
+            ...prevState,
+            ...filteredUserInfo,
+        }));
     };
 
     const handleSaveClick = async (userId: string): Promise<void> => {
@@ -73,7 +85,6 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
             ...userInfo,
         };
 
-        // get updated user from database and create filtered user
         const updatedUser = await updateUser(newUserInfo, userId);
         const filteredUpdatedUser: UserInfo = {
             fullName: `${updatedUser?.firstName} ${updatedUser?.lastName}`,

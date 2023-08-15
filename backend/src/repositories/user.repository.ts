@@ -34,7 +34,8 @@ class UserRepository {
     // get single user
     public getSingleUser(id: string): User | undefined {
         // retrieve user based on id
-        const filteredUser: User | undefined = usersData.find(
+
+        const filteredUser: User | undefined = this.users.find(
             (user: User) => user._id === id
         );
 
