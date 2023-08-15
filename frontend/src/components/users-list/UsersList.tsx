@@ -75,7 +75,9 @@ const UsersList: React.FC = (): JSX.Element => {
 
                 {filteredUsers?.length < 1 &&
                     users &&
-                    users.map((user) => <User key={user._id} user={user} />)}
+                    users.map((user, index) => (
+                        <User key={user._id + index} user={user} />
+                    ))}
             </div>
         </div>
     );

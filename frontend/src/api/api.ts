@@ -3,6 +3,7 @@ import axios from 'axios';
 // models
 import { User } from '../models/user.model';
 import { UserInfo } from '../models/userInfo.model';
+import { UserForm } from '../models/userFormInput.model';
 
 // get all users
 const getAllUsers = async (): Promise<User[]> => {
@@ -33,6 +34,23 @@ const getSingleUser = async (id: string): Promise<User> => {
     return response.data;
 };
 
+// create user
+const createUser = async (payload: UserForm): Promise<User> => {
+    const response = await axios.post(
+        '/api/users/',
+        {
+            ...payload,
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    );
+
+    return response.data;
+};
+
 // update user
 const updateUser = async (payload: UserInfo, id: string): Promise<User> => {
     const splitFullName = payload.fullName.split(' ');
@@ -47,6 +65,7 @@ const updateUser = async (payload: UserInfo, id: string): Promise<User> => {
     const response = await axios({
         method: 'put',
         url: `/api/users/${id}`,
+        headers: { 'Content-Type': 'application/json' },
         data: {
             ...changedPayload,
         },
@@ -66,6 +85,7 @@ export {
     getAllUsers,
     getUserByEmailOrPhone,
     getSingleUser,
+    createUser,
     updateUser,
     deleteUser,
 };

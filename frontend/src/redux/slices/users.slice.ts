@@ -19,6 +19,9 @@ export const usersSlice = createSlice({
         setFilteredUsers: (state, action) => {
             state.filteredUsers = action.payload;
         },
+        createUser: (state, action) => {
+            state.users = [action.payload, ...state.users];
+        },
         updateUsers: (state, action) => {
             state.users = state.users.map((user) => {
                 if (user._id === action.payload.id) {
@@ -38,7 +41,12 @@ export const usersSlice = createSlice({
     },
 });
 
-export const { setUsers, setFilteredUsers, updateUsers, deleteUser } =
-    usersSlice.actions;
+export const {
+    setUsers,
+    setFilteredUsers,
+    createUser,
+    updateUsers,
+    deleteUser,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

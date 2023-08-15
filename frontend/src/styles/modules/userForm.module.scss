@@ -27,13 +27,16 @@
             outline: none;
             font-size: 1.3rem;
             font-weight: 700;
-            color: $color-blue;
+            background: $color-black;
+            color: $color-white;
             border-radius: 0.5rem;
             transition: background 0.2s ease-out, color 0.2s ease-out;
+            user-select: none;
 
-            &:hover {
-                background: $color-black;
-                color: $color-white;
+            &.disabled {
+                pointer-events: none;
+                color: $color-black-2;
+                background: $color-grey-3;
             }
         }
     }
