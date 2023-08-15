@@ -55,4 +55,17 @@ const updateUser = async (payload: UserInfo, id: string): Promise<User> => {
     return response.data;
 };
 
-export { getAllUsers, getUserByEmailOrPhone, getSingleUser, updateUser };
+// delete user
+const deleteUser = async (id: string): Promise<boolean> => {
+    const response = await axios.delete(`/api/users/${id}`);
+
+    return response.data;
+};
+
+export {
+    getAllUsers,
+    getUserByEmailOrPhone,
+    getSingleUser,
+    updateUser,
+    deleteUser,
+};

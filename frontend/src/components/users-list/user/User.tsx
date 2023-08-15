@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from '../../../styles/modules/user.module.scss';
 
 // api
-import { getSingleUser, updateUser } from '../../../api/api';
+import { deleteUser, getSingleUser, updateUser } from '../../../api/api';
 
 // models
 import { UserProps } from '../../../models/userProps.model';
@@ -81,15 +81,25 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
             phoneNumber: updatedUser.phoneNumber,
         };
 
+        // update store
+        dispatch(usersSlice.actions.updateUsers({ updatedUser, id: userId }));
+
+        // update state
         setUserInfo((prevState) => ({
             ...prevState,
             ...filteredUpdatedUser,
         }));
 
-        // update store
-        dispatch(usersSlice.actions.updateUsers({ updatedUser, id: userId }));
-
         setIsEditing((isEditing) => !isEditing);
+    };
+
+    const handleDeleteClick = async (userId: string): Promise<void> => {
+        const userDeleted = await deleteUser(userId);
+
+        if (userDeleted) {
+            // update store
+            dispatch(usersSlice.actions.deleteUser({ id: userId }));
+        }
     };
 
     return (
@@ -171,7 +181,9 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
                     )}
                 </button>
 
-                <TrashSVG className={styles['trash-icon']} />
+                <button onClick={() => handleDeleteClick(user?._id)}>
+                    <TrashSVG className={styles['trash-icon']} />
+                </button>
             </div>
         </div>
     );
