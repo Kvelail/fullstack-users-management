@@ -75,10 +75,10 @@ const User: React.FC<UserProps> = ({ user }): JSX.Element => {
 
         // get updated user from database and create filtered user
         const updatedUser = await updateUser(newUserInfo, userId);
-        const filteredUpdatedUser = {
-            fullName: `${updatedUser.firstName} ${updatedUser.lastName}`,
-            email: updatedUser.email,
-            phoneNumber: updatedUser.phoneNumber,
+        const filteredUpdatedUser: UserInfo = {
+            fullName: `${updatedUser?.firstName} ${updatedUser?.lastName}`,
+            email: updatedUser?.email,
+            phoneNumber: updatedUser?.phoneNumber,
         };
 
         // update store

@@ -36,7 +36,7 @@ const Navbar: React.FC = (): JSX.Element => {
 
         // search users by passed test
         if (isEmail || isPhoneNumber) {
-            let users: User | null = null;
+            let users: User | undefined = undefined;
 
             if (isEmail) {
                 users = await getUserByEmailOrPhone(value, null);

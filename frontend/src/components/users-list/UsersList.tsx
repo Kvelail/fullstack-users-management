@@ -27,7 +27,7 @@ const UsersList: React.FC = (): JSX.Element => {
         isError,
         error,
         data: usersList,
-    } = useQuery<IUser[], Error>('users', getAllUsers);
+    } = useQuery<IUser[] | undefined, Error>('users', getAllUsers);
 
     // redux
     const dispatch = useDispatch();
