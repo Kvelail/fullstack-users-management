@@ -55,7 +55,7 @@ class UserRepository {
             ...user,
         };
 
-        this.users = [...this.users, newUser];
+        this.users = [newUser, ...this.users];
 
         return newUser;
     }
