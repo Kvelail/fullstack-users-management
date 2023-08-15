@@ -17,40 +17,28 @@ class UserRepository {
 
     // get all users
     public getAllUsers(query: UserQuery): User[] {
-        try {
-            // if query retrieve filtered users based on query, if not retrieve all users
-            if (query?.email ?? query?.phoneNumber) {
-                const filteredUsers: User[] = this.users.filter(
-                    (user: User) =>
-                        user.email === query.email ||
-                        user.phoneNumber === query.phoneNumber
-                );
+        // if query retrieve filtered users based on query, if not retrieve all users
+        if (query?.email ?? query?.phoneNumber) {
+            const filteredUsers: User[] = this.users.filter(
+                (user: User) =>
+                    user.email === query.email ||
+                    user.phoneNumber === query.phoneNumber
+            );
 
-                return filteredUsers;
-            }
-
-            return this.users;
-        } catch (err) {
-            console.log({ error: err });
-
-            throw new Error('Unable to retrieve users');
+            return filteredUsers;
         }
+
+        return this.users;
     }
 
     // get single user
     public getSingleUser(id: string): User | undefined {
-        try {
-            // retrieve user based on id
-            const filteredUser: User | undefined = usersData.find(
-                (user: User) => user._id === id
-            );
+        // retrieve user based on id
+        const filteredUser: User | undefined = usersData.find(
+            (user: User) => user._id === id
+        );
 
-            return filteredUser;
-        } catch (err) {
-            console.log({ error: err });
-
-            throw new Error('No such user');
-        }
+        return filteredUser;
     }
 
     // get user by email
@@ -60,74 +48,56 @@ class UserRepository {
 
     // create user
     public createUser(user: CreateUserDTO): User {
-        try {
-            // generate new user based on payload and add to database
-            const newUser: User = {
-                _id: uuidv4(),
-                ...user,
-            };
+        // generate new user based on payload and add to database
+        const newUser: User = {
+            _id: uuidv4(),
+            ...user,
+        };
 
-            this.users = [...this.users, newUser];
+        this.users = [...this.users, newUser];
 
-            return newUser;
-        } catch (err) {
-            console.log({ error: err });
-
-            throw new Error('Unable to create user');
-        }
+        return newUser;
     }
 
     // update user
     public updateUser(payload: UpdateUserDTO, id: string): User {
-        try {
-            let index: number = 0;
+        let index: number = 0;
 
-            // find user based on id and update
-            this.users = this.users.map((user: User, indx: number) => {
-                if (user._id === id) {
-                    // get updated user index
-                    index = indx;
+        // find user based on id and update
+        this.users = this.users.map((user: User, indx: number) => {
+            if (user._id === id) {
+                // get updated user index
+                index = indx;
 
-                    return {
-                        _id: user._id,
-                        ...payload,
-                    };
-                }
+                return {
+                    _id: user._id,
+                    ...payload,
+                };
+            }
 
-                return user;
-            });
+            return user;
+        });
 
-            const updatedUser: User = this.users[index];
+        const updatedUser: User = this.users[index];
 
-            return updatedUser;
-        } catch (err) {
-            console.log({ error: err });
-
-            throw new Error('Unable to update user');
-        }
+        return updatedUser;
     }
 
     // delete user
     public deleteUser(id: string): boolean {
-        try {
-            // check if there is user available
-            const user: User | undefined = this.users.find(
-                (user: User) => user._id === id
-            );
+        // check if there is user available
+        const user: User | undefined = this.users.find(
+            (user: User) => user._id === id
+        );
 
-            if (!user) {
-                return false;
-            }
-
-            // remove user based on id
-            this.users = this.users.filter((user: User) => user._id !== id);
-
-            return true;
-        } catch (err) {
-            console.log({ error: err });
-
-            throw new Error('Unable to delete user');
+        if (!user) {
+            return false;
         }
+
+        // remove user based on id
+        this.users = this.users.filter((user: User) => user._id !== id);
+
+        return true;
     }
 }
 

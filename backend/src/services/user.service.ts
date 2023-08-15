@@ -16,22 +16,22 @@ const getSingleUser = (id: string): User | undefined => {
 };
 
 // create user
-const createUser = (payload: CreateUserDTO): User => {
-    const user = userRepository.getByEmail(payload.email);
+const createUser = (payload: CreateUserDTO): User | boolean => {
+    const userExists = userRepository.getByEmail(payload.email);
 
-    if (user) {
-        throw new Error('User already exists');
+    if (userExists) {
+        return false;
     }
 
     return userRepository.createUser(payload);
 };
 
 // update user
-const updateUser = (payload: UpdateUserDTO, id: string): User => {
+const updateUser = (payload: UpdateUserDTO, id: string): User | null => {
     const user = userRepository.getSingleUser(id);
 
     if (!user) {
-        throw new Error("User doesn't exist");
+        return null;
     }
 
     return userRepository.updateUser(payload, id);

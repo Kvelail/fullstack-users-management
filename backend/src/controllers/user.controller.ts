@@ -8,60 +8,98 @@ import { UserQuery } from '../models/userQuery.model';
 
 // get all users
 const getAllUsers = (req: Request, res: Response): Response<User[]> => {
-    const query: UserQuery = req.query;
+    try {
+        const query: UserQuery = req.query;
 
-    const users = userService.getAllUsers(query);
+        const users = userService.getAllUsers(query);
 
-    if (!users) {
-        return res.status(404).json({ error: 'Unable to retrieve users' });
+        if (!users) {
+            return res.status(404).json({ error: 'Unable to retrieve users' });
+        }
+
+        return res.status(200).json(users);
+    } catch (err) {
+        console.log({ error: err });
+
+        return res.status(500).send('Unable to retrieve users');
     }
-
-    return res.status(200).json(users);
 };
 
 // get single user
 const getSingleUser = (req: Request, res: Response): Response<User> => {
-    const id: string = req.params.id;
+    try {
+        const id: string = req.params.id;
 
-    const user = userService.getSingleUser(id);
+        const user = userService.getSingleUser(id);
 
-    if (!user) {
-        return res.status(404).json({ error: "User doesn't exist" });
+        if (!user) {
+            return res.status(404).json({ error: "User doesn't exist" });
+        }
+
+        return res.status(200).json(user);
+    } catch (err) {
+        console.log({ error: err });
+
+        return res.status(500).send('Unable to retrieve user');
     }
-
-    return res.status(200).json(user);
 };
 
 // create user
 const createUser = (req: Request, res: Response): Response<User> => {
-    const payload: CreateUserDTO = req.body;
+    try {
+        const payload: CreateUserDTO = req.body;
 
-    const user = userService.createUser(payload);
+        const user = userService.createUser(payload);
 
-    return res.status(201).json(user);
+        if (!user) {
+            return res.status(409).send('User already exist');
+        }
+
+        return res.status(201).json(user);
+    } catch (err) {
+        console.log({ error: err });
+
+        return res.status(500).send('Unable to create user');
+    }
 };
 
 // update user
 const updateUser = (req: Request, res: Response): Response<User> => {
-    const payload: UpdateUserDTO = req.body;
-    const id: string = req.params.id;
+    try {
+        const payload: UpdateUserDTO = req.body;
+        const id: string = req.params.id;
 
-    const user = userService.updateUser(payload, id);
+        const user = userService.updateUser(payload, id);
 
-    return res.status(200).json(user);
+        if (!user) {
+            return res.status(404).send("User doesn't exist");
+        }
+
+        return res.status(200).json(user);
+    } catch (err) {
+        console.log({ error: err });
+
+        return res.status(500).send('Unable to update user');
+    }
 };
 
 // delete user
 const deleteUser = (req: Request, res: Response): Response<boolean> => {
-    const id: string = req.params.id;
+    try {
+        const id: string = req.params.id;
 
-    const userDeleted = userService.deleteUser(id);
+        const userDeleted = userService.deleteUser(id);
 
-    if (!userDeleted) {
-        return res.status(404).send(false);
+        if (!userDeleted) {
+            return res.status(404).send(false);
+        }
+
+        return res.status(200).send(true);
+    } catch (err) {
+        console.log({ error: err });
+
+        return res.status(500).send('Unable to delete user');
     }
-
-    return res.status(200).send(true);
 };
 
 export { getAllUsers, getSingleUser, createUser, updateUser, deleteUser };

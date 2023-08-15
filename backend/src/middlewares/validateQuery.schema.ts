@@ -10,6 +10,8 @@ const validateQuery = (
 ): void => {
     const params = req.params;
 
+    console.log('params', params);
+
     // create schema object
     const schema: Joi.ObjectSchema<{ id: string }> = Joi.object({
         id: Joi.string().uuid().required(),
